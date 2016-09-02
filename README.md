@@ -1,45 +1,32 @@
 # A simple letter template for Pandoc
 
-[![Build Status](https://travis-ci.org/fermiumlabs/pandoc-letter.svg?branch=master)](https://travis-ci.org/fermiumlabs/pandoc-letter)
+[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?maxAge=2592000)](https://gitter.im/fermiumlabs/Lobby)
 
-This template allows you to write letters in Markdown and convert them to nice looking PDFs using [Pandoc][] and [LaTeX][]. It's basically just a copy of Pandoc's [default LaTeX template][latex-template], slightly modified to accept arguments used in the LaTeX letter class, including:
+[![Build Status](https://travis-ci.org/fermiumlabs/cartacea.svg?branch=master)](https://travis-ci.org/fermiumlabs/cartacea)
 
-* opening
-* closing
-* address
-* return-address
-* postscript
-* enclosures list
-* carbon-copy list
+This template allows you to write letters, documentation and other business documents in Markdown and convert them to nice looking PDFs using [Pandoc](http://pandoc.org/) and [LaTeX](https://www.latex-project.org/) 
 
-All of which can be specified in a YAML metadata block. For example:
 
-```yaml
----
-author: Aaron
-opening: To whom it may concern,
-closing: Sincerely,
-address:
-- 123 Street Rd
-- Chicago, IL
-return-address:
-- My Home
-- 456 Road St.
-- New York, NY
-...
-```
+## Getting started
 
-Note that each address component should start with a hyphen. The provided example letter can be compiled with the following command:
+Write your documents in markdown in the [_input](_input) folder following the examples. Then:
 
 ```shell
-./build.sh -c 
-./build.sh -c -i inputfile.md
+npm install -g gulp
+npm install
+
+#build and watch for changes
+gulp 
+
+#build only
+gulp build
 ```
 
 ## Features
 
-The following can be set either as variables when executing `pandoc` or added to the YAML metadata.
+#### letter
 
+The following parameters can be used in the YAML metadata
 `address`
 :   Name and address of the recipient; takes a list for a multi-line address.
 
@@ -88,14 +75,6 @@ The following can be set either as variables when executing `pandoc` or added to
 `signature-before`, `signature-after`
 :   Allows adjustment of vertical space surrounding signature.
 
-
-[Pandoc]: http://pandoc.org
-[LaTeX]: http://www.latex-project.org/
-[latex-template]: https://github.com/jgm/pandoc-templates/blob/master/default.latex
-[bootstrap]: http://getbootstrap.com/css/#type-blockquotes
-[wallpaper]: https://www.ctan.org/pkg/wallpaper
-
-
 ## Thanks
 
 A huge thank you to the [creator](http://aaronwolen.com/) of the original [repository](https://github.com/aaronwolen/pandoc-letter) and to all the [pandoc](http://pandoc.org/) team.
@@ -108,12 +87,14 @@ The graphical content, included but not limited to:
 * letterhead.pdf
 * signature.pdf
 * background.eps
+* logo.eps
 
-Is protected by **copyright**. You can derive it from the [original](https://github.com/aaronwolen/pandoc-letter) repository we forked from, but if you copy our company graphics we'll not be happy.
+Is protected by **copyright**. If you copy our company graphics we'll not be happy.
 
 Anyway, feel free to open an issue or ask us at [info@fermiumlabs.com](mailto:info@fermiumlabs.com)
 
 ## Todo 
 
-* Use gulp to parse every document in the local directory with a frontmatter
-* Use gulp to select the pandoc latex template from the frontmatter
+* Move background outside of main templates and include them
+* Make a single template for letters and documents, differentiated by different inclusions
+* Include other tex templates in main from pandoc frontmatter
