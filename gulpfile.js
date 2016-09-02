@@ -20,7 +20,7 @@ gulp.task('pdf', function() {
     }))
         .pipe(shell([
             'mkdir -p _build',
-            'pandoc --latex-engine=xelatex --template=' + __dirname + '/template/<%= file.frontMatter.template %>.tex -o _build/<%= file.relative.replace(".md", ".pdf") %> _input/<%= file.relative %>'
+            'pandoc --latex-engine=xelatex --template=\"' + __dirname + '/template/<%= file.frontMatter.template %>.tex\" -o _build/<%= file.relative.replace(".md", ".pdf") %> _input/<%= file.relative %>'
         ]))
 })
 
