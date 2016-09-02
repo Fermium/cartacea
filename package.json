@@ -1,0 +1,30 @@
+{
+  "name": "pandoc-letter",
+  "version": "1.0.0",
+  "description": "A easy generator of beautiful branded pdf",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fermiumlabs/pandoc-letter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fermiumlabs/pandoc-letter/issues"
+  },
+  "homepage": "https://github.com/fermiumlabs/pandoc-letter#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-cached": "^1.1.0",
+    "gulp-changed": "^1.3.2",
+    "gulp-clean": "^0.3.2",
+    "gulp-front-matter": "^1.3.0",
+    "gulp-print": "^2.0.1",
+    "gulp-shell": "^0.5.2",
+    "gulp-util": "^3.0.7",
+    "gulp-watch": "^4.3.9"
+  }
+}
