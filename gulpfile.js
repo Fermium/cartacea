@@ -31,13 +31,12 @@ gulp.task('compress', ['pdf'], function() {
         .pipe(print())
         .pipe(shell([
             //optimize pdf and improve compatibility. check http://www.tjansson.dk/2012/04/compressing-pdfs-using-ghostscript-under-linux/
-            'gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dDownsampleColorImages=true -dColorImageResolution=150 -dQUIET -dBATCH -sOutputFile=_build/<%= file.relative.replace(".pdf",".tmp") %> _build/<%= file.relative %>',
+            'gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dDownsampleColorImages=true -dColorImageResolution=150 -dNOPAUSE -dQUIET -dBATCH -sOutputFile=_build/<%= file.relative.replace(".pdf",".tmp") %> _build/<%= file.relative %>',
             //remove old .pdf and rename .tmp to .pdf
             'rm _build/<%= file.relative %>',
             'mv _build/<%= file.relative.replace(".pdf",".tmp") %> _build/<%= file.relative %>'
         ], {
             verbose: false,
-            quiet: true
         }))
 })
 
