@@ -1,31 +1,44 @@
+# This references the default nodejs container from
+# the Docker Hub: https://registry.hub.docker.com/_/node/
+# If you want Nodesource's container you would reference nodesource/node
+# Read more about containers on our dev center
+# http://devcenter.wercker.com/docs/containers/index.html
+box: ubuntu:xenial
+command-timeout: 30
+# This is the build pipeline. Pipelines are the core of wercker
+# Read more about pipelines on our dev center
+# http://devcenter.wercker.com/docs/pipelines/index.html
 
-box: "ubuntu:xenial"
-build: 
-  steps: 
-    -script: 
+# You can also use services such as databases. Read more on our dev center:
+# http://devcenter.wercker.com/docs/services/index.html
+# services:
+    # - postgres
+    # http://devcenter.wercker.com/docs/services/postgresql.html
+
+    # - mongo
+    # http://devcenter.wercker.com/docs/services/mongodb.html
+build:
+  steps:
+    - script:
+        name: nodejs installation
         code: |
             sudo apt-get update
             sudo apt-get install -y curl wget nodejs npm build-essential
             ln -s /usr/bin/nodejs /usr/bin/node
             echo "node version $(node -v) running"
             echo "npm version $(npm -v) running"
-        name: "Install nodejs"
-    -script: 
-        code: "sudo apt-get -y install texlive-full \n"
-        name: "Install Latex"
-    -script: 
+    - script:
+        name: Install pandoc latex roboto from apt
         code: |
             sudo apt-get -y install jq python-pip zip ghostscript fonts-roboto texlive-full
             wget `curl https://api.github.com/repos/jgm/pandoc/releases/latest | jq -r '.assets[] | .browser_download_url | select(endswith("deb"))'` -O pandoc.deb && sudo dpkg -i pandoc.deb && rm pandoc.deb
             npm install 
             npm install gulp -g
-        name: "Install Pandoc"
-    -script: 
-        code: "gulp build"
-        name: build
-    -script: 
+    - script:
+        name: build 
+        code: gulp build
+    - script:
+        name: post build
         code: |
             zip -r build.zip _build
             curl --upload-file ./build.zip https://transfer.sh/build.zip
-        name: "post build"
-command-timeout: 30
