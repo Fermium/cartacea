@@ -28,26 +28,25 @@ build:
     # and the code value contains the command that get executed
     - script:
         name: echo nodejs information
-        code: 
-          - echo "node version $(node -v) running"
-          - echo "npm version $(npm -v) running"
+        code: |
+            echo "node version $(node -v) running"
+            echo "npm version $(npm -v) running"
     - script:
         name: install 
-        code: 
-          - wget https://github.com/scottkosty/install-tl-ubuntu/raw/master/install-tl-ubuntu && chmod +x ./install-tl-ubuntu
-          - sudo ./install-tl-ubuntu 
-          - export PATH="/opt/texbin:$PATH"
-          - sudo apt-get -y update 
-          - sudo apt-get -y install jq python-pip zip ghostscript fonts-roboto
-          # install latest pandoc release
-          - wget `curl https://api.github.com/repos/jgm/pandoc/releases/latest | jq -r '.assets[] | .browser_download_url | select(endswith("deb"))'` -O pandoc.deb && sudo dpkg -i pandoc.deb && rm pandoc.deb
-          - npm install 
-          - npm install gulp -g
+        code: |
+            wget https://github.com/scottkosty/install-tl-ubuntu/raw/master/install-tl-ubuntu && chmod +x ./install-tl-ubuntu
+            sudo ./install-tl-ubuntu 
+            export PATH="/opt/texbin:$PATH"
+            sudo apt-get -y update 
+            sudo apt-get -y install jq python-pip zip ghostscript fonts-roboto
+            wget `curl https://api.github.com/repos/jgm/pandoc/releases/latest | jq -r '.assets[] | .browser_download_url | select(endswith("deb"))'` -O pandoc.deb && sudo dpkg -i pandoc.deb && rm pandoc.deb
+            npm install 
+            npm install gulp -g
     - script:
         name: build 
         code: gulp build
     - script:
         name: post build
-        code:
-          - zip -r build.zip _build
-          - curl --upload-file ./build.zip https://transfer.sh/build.zip
+        code: |
+            zip -r build.zip _build
+            curl --upload-file ./build.zip https://transfer.sh/build.zip
