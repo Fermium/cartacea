@@ -1,0 +1,27 @@
+box: ubuntu:xenial
+command-timeout: 30
+build:
+  steps:
+    - script:
+        name: nodejs installation
+        code: |
+            sudo apt-get update -q
+            sudo apt-get install -y -q curl wget nodejs npm build-essential
+            ln -s /usr/bin/nodejs /usr/bin/node
+            echo "node version $(node -v) running"
+            echo "npm version $(npm -v) running"
+    - script:
+        name: Install pandoc latex roboto from apt
+        code: |
+            sudo apt-get -y -q install jq python-pip zip ghostscript fonts-roboto texlive-full
+            wget `curl https://api.github.com/repos/jgm/pandoc/releases/latest | jq -r '.assets[] | .browser_download_url | select(endswith("deb"))'` -O pandoc.deb && sudo dpkg -i pandoc.deb && rm pandoc.deb
+            npm install 
+            npm install gulp -g
+    - script:
+        name: build 
+        code: gulp build
+    - script:
+        name: post build
+        code: |
+            zip -r build.zip _build
+            curl --upload-file ./build.zip https://transfer.sh/build.zip
