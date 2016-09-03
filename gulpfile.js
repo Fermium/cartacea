@@ -9,7 +9,7 @@ var print = require('gulp-print');
 
 // invoke pandoc and build the pdfs
 gulp.task('pdf', function() {
-    return gulp.src('_input/*.md', {
+    return gulp.src('input/*.md', {
             verbose: false
             })
         .pipe(changed('_build', {extension: '.pdf'})) //only changed pdf files
@@ -20,7 +20,7 @@ gulp.task('pdf', function() {
     }))
         .pipe(shell([
             'mkdir -p _build',
-            'pandoc --latex-engine=xelatex --template=\"' + __dirname + '/template/<%= file.frontMatter.template %>.tex\" -o _build/<%= file.relative.replace(".md", ".pdf") %> _input/<%= file.relative %>'
+            'pandoc --latex-engine=xelatex --template=\"' + __dirname + '/_templates/<%= file.frontMatter.template %>.tex\" -o _build/<%= file.relative.replace(".md", ".pdf") %> input/<%= file.relative %>'
         ]))
 })
 
@@ -41,7 +41,7 @@ gulp.task('compress', ['pdf'], function() {
         }))
 })
 
-// delete _input directory
+// delete input directory
 gulp.task('clean', function() {
     return gulp.src('_build', {
             read: false
@@ -55,7 +55,7 @@ gulp.task('build', ['pdf', 'compress']);
 
 // watch markdown for changes 
 gulp.task('watch', function() {
-    gulp.watch('_input/*.md', ['build']);
+    gulp.watch('input/*.md', ['build']);
 });
 
 // watch for changes
