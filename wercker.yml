@@ -30,11 +30,7 @@ build:
         name: nodejs installation
         code: |
             sudo apt-get update
-            sudo apt-get install -y curl wget
-            wget https://deb.nodesource.com/setup_6.x -o node.sh
-            sudo bash node.sh
-            sudo apt-get install -y nodejs
-            sudo apt-get install -y build-essential
+            sudo apt-get install -y curl wget nodejs npm build-essential
             echo "node version $(node -v) running"
             echo "npm version $(npm -v) running"
     - script:
