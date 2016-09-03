@@ -28,12 +28,12 @@ build:
     # and the code value contains the command that get executed
     - script:
         name: echo nodejs information
-        code: |
-          echo "node version $(node -v) running"
-          echo "npm version $(npm -v) running"
+        code: 
+          - echo "node version $(node -v) running"
+          - echo "npm version $(npm -v) running"
     - script:
         name: install 
-        code: |
+        code: 
           - wget https://github.com/scottkosty/install-tl-ubuntu/raw/master/install-tl-ubuntu && chmod +x ./install-tl-ubuntu
           - sudo ./install-tl-ubuntu 
           - export PATH="/opt/texbin:$PATH"
