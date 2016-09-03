@@ -7,8 +7,8 @@ build:
         code: |
             npm install 
     - script:
-        name: build 
-        code: gulp build
+        name: test 
+        code: npm test
     - script:
         name: post build
         code: |
