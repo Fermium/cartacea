@@ -35,7 +35,7 @@ build:
         name: install 
         code: |
             wget https://github.com/scottkosty/install-tl-ubuntu/raw/master/install-tl-ubuntu && chmod +x ./install-tl-ubuntu
-            sudo ./install-tl-ubuntu 
+            ./install-tl-ubuntu 
             export PATH="/opt/texbin:$PATH"
             sudo apt-get -y update 
             sudo apt-get -y install jq python-pip zip ghostscript fonts-roboto
