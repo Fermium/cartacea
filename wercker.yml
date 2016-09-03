@@ -23,12 +23,11 @@ build:
   # http://devcenter.wercker.com/docs/steps/index.html
   steps:
     # A step that executes `npm install` command
-    - npm-install
     # A custom script step, name value is used in the UI
     # and the code value contains the command that get executed,
     
     - script:
-        name: nodejs
+        name: nodejs installation
         code: |
             curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
             sudo apt-get install -y nodejs
@@ -36,7 +35,7 @@ build:
             echo "node version $(node -v) running"
             echo "npm version $(npm -v) running"
     - script:
-        name: install 
+        name: install pandoc latex roboto 
         code: |
             wget https://github.com/scottkosty/install-tl-ubuntu/raw/master/install-tl-ubuntu && chmod +x ./install-tl-ubuntu
             ./install-tl-ubuntu 
