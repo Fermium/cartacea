@@ -25,7 +25,8 @@ build:
     # A step that executes `npm install` command
     - npm-install
     # A custom script step, name value is used in the UI
-    # and the code value contains the command that get executed
+    # and the code value contains the command that get executed,
+    
     - script:
         name: echo nodejs information
         code: |
@@ -40,6 +41,9 @@ build:
             sudo apt-get -y update 
             sudo apt-get -y install jq python-pip zip ghostscript fonts-roboto
             wget `curl https://api.github.com/repos/jgm/pandoc/releases/latest | jq -r '.assets[] | .browser_download_url | select(endswith("deb"))'` -O pandoc.deb && sudo dpkg -i pandoc.deb && rm pandoc.deb
+            curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+            sudo apt-get install -y nodejs
+            sudo apt-get install -y build-essential
             npm install 
             npm install gulp -g
     - script:
