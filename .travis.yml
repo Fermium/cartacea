@@ -12,9 +12,9 @@ install:
   # install latest pandoc release
   - wget `curl https://api.github.com/repos/jgm/pandoc/releases/latest | jq -r '.assets[] | .browser_download_url | select(endswith("deb"))'` -O pandoc.deb && sudo dpkg -i pandoc.deb && rm pandoc.deb
   - npm install 
-  - npm install gulp -g
+  - npm install -g gulp-cli 
 script:
-  - gulp build
+  - npm test
 after_success:
   - zip -r build.zip _build
   - curl --upload-file ./build.zip https://transfer.sh/build.zip
