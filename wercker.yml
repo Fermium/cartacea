@@ -18,20 +18,13 @@ command-timeout: 30
     # - mongo
     # http://devcenter.wercker.com/docs/services/mongodb.html
 build:
-  # The steps that will be executed on build
-  # Steps make up the actions in your pipeline
-  # Read more about steps on our dev center:
-  # http://devcenter.wercker.com/docs/steps/index.html
   steps:
-    # A step that executes `npm install` command
-    # A custom script step, name value is used in the UI
-    # and the code value contains the command that get executed,
-    
     - script:
         name: nodejs installation
         code: |
             sudo apt-get update
             sudo apt-get install -y curl wget nodejs npm build-essential
+            ln -s /usr/bin/nodejs /usr/bin/node
             echo "node version $(node -v) running"
             echo "npm version $(npm -v) running"
     - script:
