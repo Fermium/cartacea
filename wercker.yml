@@ -1,9 +1,8 @@
 box: fermiumlabs/latex-docker
-command-timeout: 30
 build:
   steps:
     - script:
-        name: Install 
+        name: Install dependencies
         code: |
             npm install 
     - script:
