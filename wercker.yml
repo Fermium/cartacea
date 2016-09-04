@@ -3,13 +3,12 @@ build:
   steps:
     - script:
         name: Install dependencies
-        code: |
-            npm install 
+        code: npm install 
     - script:
-        name: test 
+        name: Test 
         code: npm test
     - script:
-        name: post build
-        code: |
-            zip -r build.zip _build
-            curl --upload-file ./build.zip https://transfer.sh/build.zip
+        name: Zip and transfer results
+        code:
+          - zip -r build.zip _build
+          - curl --upload-file ./build.zip https://transfer.sh/build.zip
