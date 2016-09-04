@@ -7,7 +7,7 @@ This template allows you to write letters, documentation and other business docu
 
 ## Getting started
 
-Write your documents in markdown in the [_input](_input) folder following the examples. Then:
+Write your documents in markdown in the [input](input) folder following the examples. Then:
 
 ```shell
 npm install -g gulp
