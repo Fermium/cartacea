@@ -11,13 +11,15 @@ var print = require('gulp-print');
 gulp.task('pdf', function() {
     return gulp.src('_input/*.md', {
             verbose: false
-            })
-        .pipe(changed('_build', {extension: '.pdf'})) //only changed pdf files
+        })
+        .pipe(changed('_build', {
+            extension: '.pdf'
+        })) //only changed pdf files
         .pipe(print())
         .pipe(frontMatter({
-      property: 'frontMatter', // property added to file object 
-      remove: false // should we remove front-matter header? 
-    }))
+            property: 'frontMatter', // property added to file object 
+            remove: false // should we remove front-matter header? 
+        }))
         .pipe(shell([
             'mkdir -p _build',
             'pandoc --latex-engine=xelatex --template=' + __dirname + '/template/<%= file.frontMatter.template %>.tex -o _build/<%= file.relative.replace(".md", ".pdf") %> _input/<%= file.relative %>'
