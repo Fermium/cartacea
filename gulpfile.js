@@ -11,16 +11,18 @@ var print = require('gulp-print');
 gulp.task('pdf', function() {
     return gulp.src('input/*.md', {
             verbose: false
-            })
-        .pipe(changed('_build', {extension: '.pdf'})) //only changed pdf files
+        })
+        .pipe(changed('_build', {
+            extension: '.pdf'
+        })) //only changed pdf files
         .pipe(print())
         .pipe(frontMatter({
-      property: 'frontMatter', // property added to file object 
-      remove: false // should we remove front-matter header? 
-    }))
+            property: 'frontMatter', // property added to file object 
+            remove: false // should we remove front-matter header? 
+        }))
         .pipe(shell([
             'mkdir -p _build',
-            'pandoc --latex-engine=xelatex --template=\"' + __dirname + '/_templates/<%= file.frontMatter.template %>.tex\" -o _build/<%= file.relative.replace(".md", ".pdf") %> input/<%= file.relative %>'
+            'pandoc --latex-engine=xelatex --template=\"' + __dirname + '/_templates/<%= file.frontMatter.template %>.tex\" -o \"_build/<%= file.relative.replace(".md", ".pdf") %>\" \"input/<%= file.relative %>\"'
         ]))
 })
 
@@ -31,10 +33,10 @@ gulp.task('compress', ['pdf'], function() {
         .pipe(print())
         .pipe(shell([
             //optimize pdf and improve compatibility. check http://www.tjansson.dk/2012/04/compressing-pdfs-using-ghostscript-under-linux/
-            'gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dDownsampleColorImages=true -dColorImageResolution=150 -dNOPAUSE -dQUIET -dBATCH -sOutputFile=_build/<%= file.relative.replace(".pdf",".tmp") %> _build/<%= file.relative %>',
+            'gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dDownsampleColorImages=true -dColorImageResolution=150 -dNOPAUSE -dQUIET -dBATCH -sOutputFile=\"_build/<%= file.relative.replace(".pdf",".tmp") %>\" \"_build/<%= file.relative %>\"',
             //remove old .pdf and rename .tmp to .pdf
-            'rm _build/<%= file.relative %>',
-            'mv _build/<%= file.relative.replace(".pdf",".tmp") %> _build/<%= file.relative %>'
+            'rm \"_build/<%= file.relative %>\"',
+            'mv \"_build/<%= file.relative.replace(".pdf",".tmp") %>\" \"_build/<%= file.relative %>\"'
         ], {
             verbose: false,
         }))
