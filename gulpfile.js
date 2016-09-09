@@ -9,7 +9,7 @@ var print = require('gulp-print');
 
 // invoke pandoc and build the pdfs
 gulp.task('pdf', function() {
-    return gulp.src('_input/*.md', {
+    return gulp.src('input/*.md', {
             verbose: false
         })
         .pipe(changed('_build', {
@@ -22,7 +22,7 @@ gulp.task('pdf', function() {
         }))
         .pipe(shell([
             'mkdir -p _build',
-            'pandoc --latex-engine=xelatex --template=' + __dirname + '/template/<%= file.frontMatter.template %>.tex -o _build/<%= file.relative.replace(".md", ".pdf") %> _input/<%= file.relative %>'
+            'pandoc --latex-engine=xelatex --template=\"' + __dirname + '/_templates/<%= file.frontMatter.template %>.tex\" -o _build/<%= file.relative.replace(".md", ".pdf") %> input/<%= file.relative %>'
         ]))
 })
 
@@ -33,17 +33,16 @@ gulp.task('compress', ['pdf'], function() {
         .pipe(print())
         .pipe(shell([
             //optimize pdf and improve compatibility. check http://www.tjansson.dk/2012/04/compressing-pdfs-using-ghostscript-under-linux/
-            'gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dDownsampleColorImages=true -dColorImageResolution=150 -dNOPAUSE -dPDFSETTINGS=/printer -dQUIET -dBATCH -sOutputFile=_build/<%= file.relative.replace(".pdf",".tmp") %> _build/<%= file.relative %>',
+            'gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dDownsampleColorImages=true -dColorImageResolution=150 -dNOPAUSE -dQUIET -dBATCH -sOutputFile=_build/<%= file.relative.replace(".pdf",".tmp") %> _build/<%= file.relative %>',
             //remove old .pdf and rename .tmp to .pdf
             'rm _build/<%= file.relative %>',
             'mv _build/<%= file.relative.replace(".pdf",".tmp") %> _build/<%= file.relative %>'
         ], {
             verbose: false,
-            quiet: true
         }))
 })
 
-// delete _input directory
+// delete input directory
 gulp.task('clean', function() {
     return gulp.src('_build', {
             read: false
@@ -57,7 +56,7 @@ gulp.task('build', ['pdf', 'compress']);
 
 // watch markdown for changes 
 gulp.task('watch', function() {
-    gulp.watch('_input/*.md', ['build']);
+    gulp.watch('input/*.md', ['build']);
 });
 
 // watch for changes

@@ -4,7 +4,7 @@
   "description": "A easy generator of beautiful branded pdf",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "gulp"
+    "test": "gulp build"
   },
   "repository": {
     "type": "git",
