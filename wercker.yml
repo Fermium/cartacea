@@ -1,4 +1,4 @@
-box: fermiumlabs/latex-docker:latest-develop
+box: fermiumlabs/latex-docker
 build:
   steps:
     - script:
