@@ -1,6 +1,8 @@
+[![wercker status](https://app.wercker.com/status/86627b9183b151b80605d8ee376ab308/s/master "wercker status")](https://app.wercker.com/project/byKey/86627b9183b151b80605d8ee376ab308) [![Analytics](https://ga-beacon.appspot.com/UA-69533556-3/cartacea/readme/?flat)](https://github.com/igrigorik/ga-beacon)
+
+
 # A simple letter template for Pandoc
 
-[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?maxAge=2592000)](https://gitter.im/fermiumlabs/Lobby) [![wercker status](https://app.wercker.com/status/86627b9183b151b80605d8ee376ab308/s/master "wercker status")](https://app.wercker.com/project/byKey/86627b9183b151b80605d8ee376ab308) [![Analytics](https://ga-beacon.appspot.com/UA-69533556-3/cartacea/readme/?flat)](https://github.com/igrigorik/ga-beacon)
 
 This template allows you to write letters, documentation and other business documents in Markdown and convert them to nice looking PDFs using [Pandoc](http://pandoc.org/) and [LaTeX](https://www.latex-project.org/) 
 
