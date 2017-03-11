@@ -9,7 +9,7 @@ var print = require('gulp-print');
 
 // invoke pandoc and build the pdfs
 gulp.task('pdf', function() {
-    return gulp.src('input/*.md', {
+    return gulp.src('src/*.md', {
             verbose: false
         })
         //only changed pdf files
@@ -25,7 +25,7 @@ gulp.task('pdf', function() {
         }))
         .pipe(shell([
             'mkdir -p _build',
-            'pandoc --latex-engine=xelatex --template=\"' + __dirname + '/_templates/<%= file.frontMatter.template %>.tex\" -o \"_build/<%= file.relative.replace(".md", ".pdf") %>\" \"input/<%= file.relative %>\"'
+            'pandoc --latex-engine=xelatex --template=\"' + __dirname + '/templates/<%= file.frontMatter.template %>.tex\" -o \"_build/<%= file.relative.replace(".md", ".pdf") %>\" \"src/<%= file.relative %>\"'
         ]))
 })
 
@@ -72,7 +72,7 @@ gulp.task('clean', function() {
 
 // watch for changes and rebuild the changed PDFs
 gulp.task('watch', function() {
-gulp.watch('input/**/*.md', gulp.parallel('pdf'));
+gulp.watch('src/**/*.md', gulp.parallel('pdf'));
 });
 
 //######################################################
