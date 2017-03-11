@@ -44,8 +44,7 @@ gulp.task('compress',  function() {
 
 // delete input directory
 gulp.task('clean', function() {
-    return gulp.src('_build', {
-            read: false
+    return gulp.src('_build/**/*', {
         })
         .pipe(clean());
 });
@@ -60,3 +59,4 @@ gulp.task('watch', function() {
 
 
 gulp.task('default', gulp.series('pdf'));
+gulp.task('release', gulp.series('clean','pdf','compress'));
