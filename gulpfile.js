@@ -45,6 +45,25 @@ gulp.task('compress',  function() {
         }))
 })
 
+
+gulp.task('check-sw', shell.task([
+  'which node > /dev/null',
+  'which pdflatex > /dev/null',
+  'which pandoc > /dev/null',
+  'which pandoc-fignos > /dev/null',
+  'which pandoc-eqnos > /dev/null',
+  'which pandoc-tablenos > /dev/null',
+  'which gs > /dev/null',
+  'which rm > /dev/null',
+  'which mv > /dev/null',
+  'which mkdir > /dev/null',
+  'echo \"           all necessary software is in path and reachable\"',
+  'check-node-version --node 6 --quiet'
+  
+], {verbose: false}));
+
+
+
 // delete input directory
 gulp.task('clean', function() {
     return gulp.src('_build/**/*', {
@@ -69,3 +88,6 @@ gulp.task('build', gulp.series('pdf'));
 
 //clean, build, optimize, then exit
 gulp.task('release', gulp.series('clean','pdf','compress'));
+
+// test Cartacea
+gulp.task('test', gulp.series('check-sw', 'build', 'compress'));

@@ -26,11 +26,11 @@ Cartacea is based on NodeJS is messy.
 Write your documents in markdown in the [input](input) folder following the examples. Then:
 
 ```shell
-#verify your node version. Is it newer than 6.0.0 ?
-node -v
-
 # install dependencies
 npm install
+
+#verify that you have all the software correctly installed
+$(npm bin)/gulp test
 
 #build and watch for changes
 $(npm bin)/gulp
