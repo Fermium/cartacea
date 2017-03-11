@@ -1,28 +1,54 @@
 [![wercker status](https://app.wercker.com/status/86627b9183b151b80605d8ee376ab308/s/master "wercker status")](https://app.wercker.com/project/byKey/86627b9183b151b80605d8ee376ab308) [![Analytics](https://ga-beacon.appspot.com/UA-69533556-3/cartacea/readme/?flat)](https://github.com/igrigorik/ga-beacon)
 
 
-# A simple letter template for Pandoc
+# Cartacea
+
+Cartacea is an vaguely easy-to-use document authoring system. It's designed to be used by both human bipeds and headless machines, such as CI services.
+
+It allows you to use Pandoc and LaTex with minimun to no command line knowledge and take advantage of modern tools like GitHub.
+
+While running in a CI environment it can take advantage of [latex-docker](https://github.com/fermiumlabs/latex-docker).
+
+### Document authoring
+
+You can write documents with all the ease and simplicity of plain straight markdown, plus additions from Pandoc and a few plugins.
+
+While you write Cartacea watches for changes and rebuild automatically the PDF document.
 
 
-This template allows you to write letters, documentation and other business documents in Markdown and convert them to nice looking PDFs using [Pandoc](http://pandoc.org/) and [LaTeX](https://www.latex-project.org/) 
+### Features 
+
+- Rebuilds documents while you write, watching for changes. `gulp`
+- Check that all the necessary software is installed. `gulp test`
+- Compress and optimize pdf files. `gulp release'
+- Zero command line configuration. Everything is set through your document header.
 
 
 ## Getting started
 
+Cartacea is based on NodeJS is messy.
+
 Write your documents in markdown in the [input](input) folder following the examples. Then:
 
 ```shell
-npm install -g gulp
+# install dependencies
 npm install
 
+#verify that you have all the software correctly installed
+$(npm bin)/gulp test
+
 #build and watch for changes
-gulp 
+$(npm bin)/gulp
 
 #build only
-gulp build
+$(npm bin)/gulp build
+
+#build, compress and optimize documents
+$(npm bin)/gulp release
+
 ```
 
-## Features
+## Templates
 
 #### letter
 
@@ -77,7 +103,7 @@ The following parameters can be used in the YAML metadata
 
 ## Thanks
 
-A huge thank you to the [creator](http://aaronwolen.com/) of the original [repository](https://github.com/aaronwolen/pandoc-letter) and to all the [pandoc](http://pandoc.org/) team.
+A huge thank you to the [creator](http://aaronwolen.com/) of the original [pandoc-letter](https://github.com/aaronwolen/pandoc-letter) and to all the [pandoc](http://pandoc.org/) community.
 
 ## License
 
@@ -93,8 +119,16 @@ Is protected by **copyright**. If you copy our company graphics we'll not be hap
 
 Anyway, feel free to open an issue or ask us at [info@fermiumlabs.com](mailto:info@fermiumlabs.com)
 
-## Todo 
+## FAQ 
 
-* Move background outside of main templates and include them
-* Make a single template for letters and documents, differentiated by different inclusions
-* Include other tex templates in main from pandoc frontmatter
+##### Why LaTeX ?
+
+We know, LaTeX is painful. Word is easier, right? 
+First, LaTeX is typographic excellence. Nothing is quite beautiful like a perfectly crafted PDF. In today era of pdf documents generated from HTML all of this is being lost.
+
+Unfortunately, LaTeX is hard to use. In it's savage, natural state, given all the grace it has, was unusable for our application.
+Cartacea should help with that.
+
+Secondly, LaTex is incredibly maintainable. A document written 10 years ago in latex can still (with a bit of work) be used today. Latex is itself one of the most extensive codebases in the world. We hope that 
+
+Thirdly, all those packages really helps. LaTeX can not only render books and letters, but also figures, diagrams, posters, presentations, business cards, brochures, invoices.

@@ -12,10 +12,13 @@ gulp.task('pdf', function() {
     return gulp.src('input/*.md', {
             verbose: false
         })
-        .pipe(changed('_build', {
+        //only changed pdf files
+        .pipe(changed('_build', { 
             extension: '.pdf'
-        })) //only changed pdf files
+        })) 
+        // display the files that are being built
         .pipe(print())
+        // parses the YAML frontmatter into a JS object that we can use in the following piped steps.
         .pipe(frontMatter({
             property: 'frontMatter', // property added to file object 
             remove: false // should we remove front-matter header? 
@@ -27,7 +30,7 @@ gulp.task('pdf', function() {
 })
 
 // compress and optimize the pdf files with ghostscript
-gulp.task('compress', ['pdf'], function() {
+gulp.task('compress',  function() {
     return gulp.src('_build/*.pdf')
         .pipe(changed('_build/*.pdf')) //only changed pdf files
         .pipe(print())
@@ -42,22 +45,49 @@ gulp.task('compress', ['pdf'], function() {
         }))
 })
 
+
+gulp.task('check-sw', shell.task([
+  'which node > /dev/null',
+  'which pdflatex > /dev/null',
+  'which pandoc > /dev/null',
+  'which pandoc-fignos > /dev/null',
+  'which pandoc-eqnos > /dev/null',
+  'which pandoc-tablenos > /dev/null',
+  'which gs > /dev/null',
+  'which rm > /dev/null',
+  'which mv > /dev/null',
+  'which mkdir > /dev/null',
+  'echo \"           all necessary software is in path and reachable\"',
+  'check-node-version --node 6 --quiet'
+  
+], {verbose: false}));
+
+
+
 // delete input directory
 gulp.task('clean', function() {
-    return gulp.src('_build', {
-            read: false
-        })
-        .pipe(clean());
+    return gulp.src('_build/**/*', {
+        }).pipe(clean());
 });
 
-
-// build and exit
-gulp.task('build', ['pdf', 'compress']);
-
-// watch markdown for changes 
+// watch for changes and rebuild the changed PDFs
 gulp.task('watch', function() {
-    gulp.watch('input/*.md', ['build']);
+gulp.watch('input/**/*.md', gulp.parallel('pdf'));
 });
 
-// watch for changes
-gulp.task('default', ['pdf', 'watch', 'compress']);
+//######################################################
+//ONLY TASK AFTER THIS COMMENT ARE TO BE CONSIDERE PUBLIC!
+//######################################################
+
+
+//build and watch for changes
+gulp.task('default', gulp.series('watch'));
+
+//build, then exit
+gulp.task('build', gulp.series('pdf'));
+
+//clean, build, optimize, then exit
+gulp.task('release', gulp.series('clean','pdf','compress'));
+
+// test Cartacea
+gulp.task('test', gulp.series('check-sw', 'build', 'compress'));

@@ -10,5 +10,6 @@ build:
     - script:
         name: Zip and transfer results
         code:
-          - zip -r build.zip _build
-          - curl --upload-file ./build.zip https://transfer.sh/build.zip
+          - curl -O https://raw.githubusercontent.com/rockymadden/transfer-cli/master/src/transfer
+          - chmod +x transfer
+          - ./transfer upload _build
