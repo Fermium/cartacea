@@ -49,13 +49,11 @@ gulp.task('clean', function() {
         .pipe(clean());
 });
 
-
-
-// watch markdown for changes 
 gulp.task('watch', function() {
-    gulp.watch('input/*.md');
-    
+gulp.watch('input/**/*.md', gulp.parallel('pdf'));
 });
+
+//
 
 
 gulp.task('default', gulp.series('pdf'));
