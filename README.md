@@ -22,6 +22,7 @@ While you write Cartacea watches for changes and rebuild automatically the PDF d
 - Check that all the necessary software is installed. `gulp test`
 - Compress and optimize pdf files. `gulp release'
 - Zero command line configuration. Everything is set through your document header.
+- Only rebuild files that have changed
 
 
 ## Getting started

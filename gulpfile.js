@@ -8,8 +8,9 @@ var print = require('gulp-print');
 
 
 // invoke pandoc and build the pdfs
+//files are processed like in a stream
 gulp.task('pdf', function() {
-    return gulp.src('src/*.md', {
+    return gulp.src('src/**/*.md', {
             verbose: false
         })
         //only changed pdf files
@@ -23,11 +24,15 @@ gulp.task('pdf', function() {
             property: 'frontMatter', // property added to file object 
             remove: false // should we remove front-matter header? 
         }))
+        //this is a farly complicate usage of gulp-shell. exercise caution and restrain.
         .pipe(shell([
-            'mkdir -p _build',
+            //recreate the destination directory inside _build, no matter how many layers of folder it has
+            'mkdir -p _build/<%= file.relative.split("/").slice(0, -1).join("/")+"/" %>',
+            //gets the template filename from the frontMatter. The path is considered from the ./templates/ directory
+            //the name of the file processed is the one in the current gulp stream.
             'pandoc --latex-engine=xelatex --template=\"' + __dirname + '/templates/<%= file.frontMatter.template %>.tex\" -o \"_build/<%= file.relative.replace(".md", ".pdf") %>\" \"src/<%= file.relative %>\"'
-        ]))
-})
+        ], {verbose: false}))
+});
 
 // compress and optimize the pdf files with ghostscript
 gulp.task('compress',  function() {
@@ -40,9 +45,7 @@ gulp.task('compress',  function() {
             //remove old .pdf and rename .tmp to .pdf
             'rm \"_build/<%= file.relative %>\"',
             'mv \"_build/<%= file.relative.replace(".pdf",".tmp") %>\" \"_build/<%= file.relative %>\"'
-        ], {
-            verbose: false,
-        }))
+        ], {verbose: false}))
 })
 
 
