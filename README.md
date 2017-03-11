@@ -5,18 +5,21 @@
 
 Cartacea is an vaguely easy-to-use document authoring system. It's designed to be used by both human bipeds and headless machines, such as CI services.
 
+It allows you to use Pandoc and LaTex with minimun to no command line knowledge and take advantage of modern tools like GitHub.
+
 ### Document authoring
 
 You can write documents with all the ease and simplicity of plain straight markdown, plus additions from Pandoc and a few plugins.
 
 While you write Cartacea watches for changes and rebuild automatically the PDF document.
 
-## Features 
 
-- Automatically rebuilds documents while you write
+### Features 
 
-
-
+- Rebuilds documents while you write, watching for changes. `gulp`
+- Check that all the necessary software is installed. `gulp test`
+- Compress and optimize pdf files. `gulp release'
+- Zero command line configuration. Everything is set through your document header
 
 
 ## Getting started
