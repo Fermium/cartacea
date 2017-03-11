@@ -27,7 +27,7 @@ gulp.task('pdf', function() {
 })
 
 // compress and optimize the pdf files with ghostscript
-gulp.task('compress', ['pdf'], function() {
+gulp.task('compress',  function() {
     return gulp.src('_build/*.pdf')
         .pipe(changed('_build/*.pdf')) //only changed pdf files
         .pipe(print())
@@ -51,13 +51,12 @@ gulp.task('clean', function() {
 });
 
 
-// build and exit
-gulp.task('build', ['pdf', 'compress']);
 
 // watch markdown for changes 
 gulp.task('watch', function() {
-    gulp.watch('input/*.md', ['build']);
+    gulp.watch('input/*.md');
+    
 });
 
-// watch for changes
-gulp.task('default', ['pdf', 'watch', 'compress']);
+
+gulp.task('default', gulp.series('pdf'));
