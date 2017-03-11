@@ -7,6 +7,8 @@ Cartacea is an vaguely easy-to-use document authoring system. It's designed to b
 
 It allows you to use Pandoc and LaTex with minimun to no command line knowledge and take advantage of modern tools like GitHub.
 
+While running in a CI environment it can take advantage of [latex-docker](https://github.com/fermiumlabs/latex-docker).
+
 ### Document authoring
 
 You can write documents with all the ease and simplicity of plain straight markdown, plus additions from Pandoc and a few plugins.
