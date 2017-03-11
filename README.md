@@ -21,10 +21,15 @@ While you write Cartacea watches for changes and rebuild automatically the PDF d
 
 ## Getting started
 
+Cartacea is based on NodeJS is messy.
+
 Write your documents in markdown in the [input](input) folder following the examples. Then:
 
 ```shell
-npm install -g gulp
+#verify your node version. Is it newer than 6.0.0 ?
+node -v
+
+# install dependencies
 npm install
 
 #build and watch for changes
@@ -32,6 +37,9 @@ $(npm bin)/gulp
 
 #build only
 $(npm bin)/gulp build
+
+#build, compress and optimize documents
+$(npm bin)/gulp release
 
 ```
 

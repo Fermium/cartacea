@@ -12,10 +12,13 @@ gulp.task('pdf', function() {
     return gulp.src('input/*.md', {
             verbose: false
         })
-        .pipe(changed('_build', {
+        //only changed pdf files
+        .pipe(changed('_build', { 
             extension: '.pdf'
-        })) //only changed pdf files
+        })) 
+        // display the files that are being built
         .pipe(print())
+        // parses the YAML frontmatter into a JS object that we can use in the following piped steps.
         .pipe(frontMatter({
             property: 'frontMatter', // property added to file object 
             remove: false // should we remove front-matter header? 
@@ -45,16 +48,24 @@ gulp.task('compress',  function() {
 // delete input directory
 gulp.task('clean', function() {
     return gulp.src('_build/**/*', {
-        })
-        .pipe(clean());
+        }).pipe(clean());
 });
 
+// watch for changes and rebuild the changed PDFs
 gulp.task('watch', function() {
 gulp.watch('input/**/*.md', gulp.parallel('pdf'));
 });
 
-//
+//######################################################
+//ONLY TASK AFTER THIS COMMENT ARE TO BE CONSIDERE PUBLIC!
+//######################################################
 
 
-gulp.task('default', gulp.series('pdf'));
+//build and watch for changes
+gulp.task('default', gulp.series('watch'));
+
+//build, then exit
+gulp.task('build', gulp.series('pdf'));
+
+//clean, build, optimize, then exit
 gulp.task('release', gulp.series('clean','pdf','compress'));
