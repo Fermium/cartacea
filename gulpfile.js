@@ -10,7 +10,7 @@ var print = require('gulp-print');
 // invoke pandoc and build the pdfs
 //files are processed like in a stream
 gulp.task('pdf', function() {
-    return gulp.src('src/**/*.md', {
+    return gulp.src('src/**/00_header.md', {
             verbose: false
         })
         //only changed pdf files
@@ -27,10 +27,15 @@ gulp.task('pdf', function() {
         //this is a farly complicate usage of gulp-shell. exercise caution and restrain.
         .pipe(shell([
             //recreate the destination directory inside _build, no matter how many layers of folder it has
-            'mkdir -p _build/<%= file.relative.split("/").slice(0, -1).join("/")+"/" %>',
+            'mkdir -p <%= "_build/" + file.relative.split("/").slice(0, -1).join("/") %>',
+            //pandoc with the latex engine
+            'pandoc --latex-engine=xelatex' + " " + 
             //gets the template filename from the frontMatter. The path is considered from the ./templates/ directory
-            //the name of the file processed is the one in the current gulp stream.
-            'pandoc --latex-engine=xelatex --template=\"' + __dirname + '/templates/<%= file.frontMatter.template %>.tex\" -o \"_build/<%= file.relative.replace(".md", ".pdf") %>\" \"src/<%= file.relative %>\"'
+            '--template=\"' + __dirname + '/templates/<%= file.frontMatter.template %>.tex\"' + " " +
+            //get the output filename from the frontMatter, and the output file path from the path of the file currently being processed
+            '-o \"<%= "_build/" + file.relative.split("/").slice(0, -1).join("/")+"/" + file.frontMatter.filetitle + ".pdf" %>\"' + " " +
+            //process all files. Here there are no quotes because bash will expand "*.md"
+            '<%= "src/" + file.relative.split("/").slice(0, -1).join("/") + "/*.md" %>'
         ], {verbose: false}))
 });
 

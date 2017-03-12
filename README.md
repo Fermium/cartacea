@@ -3,9 +3,9 @@
 
 # Cartacea
 
-Cartacea is an vaguely easy-to-use document authoring system. It's designed to be used by both human bipeds and headless machines, such as CI services.
+Cartacea is an vaguely easy-to-use document authoring system. It's designed to be used by both human bipeds and headless machines, such as [CI services](https://github.com/ligurio/Continuous-Integration-services/blob/master/continuous-integration-services-list.md).
 
-It allows you to use Pandoc and LaTex with minimun to no command line knowledge and take advantage of modern tools like GitHub.
+It allows you to use [Pandoc](http://pandoc.org/) and [LaTex](https://www.latex-project.org/) with minimum to no command line knowledge and take advantage of modern tools like GitHub.
 
 While running in a CI environment it can take advantage of [latex-docker](https://github.com/fermiumlabs/latex-docker).
 
@@ -15,29 +15,53 @@ You can write documents with all the ease and simplicity of plain straight markd
 
 While you write Cartacea watches for changes and rebuild automatically the PDF document.
 
-
 ### Features 
 
 - Rebuilds documents while you write, watching for changes. `gulp`
 - Check that all the necessary software is installed. `gulp test`
-- Compress and optimize pdf files. `gulp release'
+- Compress and optimize pdf files. `gulp release`
 - Zero command line configuration. Everything is set through your document header.
 - Only rebuild files that have changed
 
 
 ## Getting started
 
-Cartacea is based on NodeJS is messy.
+You can create your documents in the *./src* folder, separated in subfolders.
 
-Write your documents in markdown in the [input](input) folder following the examples. Then:
+Example:
+
+* src
+  * document
+    * 00_header.md
+    * 01_document.md
+  * letter
+    * 00_header.md
+    * 01_letter.md
+
+Each subfolder must have a header called *00_header.md* that contains the frontMatter. Each subsequent markdown document will be processed alphabetically after the header and joint together, such as:
+
+* 00_header.md 
+* 01_introduction.md 
+* 02_corpus.md 
+* 03_conclusion.md
+
+You need to have [NodeJS installed](https://nodejs.org/en/download/package-manager/) and at [version 6.X](https://github.com/creationix/nvm)
+
+Install the dependencies:
 
 ```shell
-# install dependencies
 npm install
+```
+Verify that you have all the software correctly installed:
 
-#verify that you have all the software correctly installed
+```shell
 $(npm bin)/gulp test
+```
+We use `npm bin` to get the path of the [gulp](https://github.com/gulpjs/gulp) package installed locally, since we use the [4.x](https://github.com/gulpjs/gulp/blob/4.0/CHANGELOG.md) version.
 
+You then have available the following commands.
+
+```shell
 #build and watch for changes
 $(npm bin)/gulp
 
@@ -48,6 +72,8 @@ $(npm bin)/gulp build
 $(npm bin)/gulp release
 
 ```
+
+---
 
 ## Templates
 
@@ -101,6 +127,8 @@ The following parameters can be used in the YAML metadata
 
 `signature-before`, `signature-after`
 :   Allows adjustment of vertical space surrounding signature.
+
+---
 
 ## Thanks
 
