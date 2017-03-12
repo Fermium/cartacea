@@ -13,27 +13,26 @@ gulp.task('pdf', function() {
     return gulp.src('src/**/00_header.md', {
             verbose: false
         })
-        //only changed pdf files
-        .pipe(changed('_build/**/*', {
-            extension: '.pdf'
-        }))
-        // display the files that are being built
-        .pipe(print())
-        // parses the YAML frontmatter into a JS object that we can use in the following piped steps.
         .pipe(frontMatter({
             property: 'frontMatter', // property added to file object 
             remove: false // should we remove front-matter header? 
         }))
+        //only changed pdf files
+        .pipe(changed('_build' ))
+        // display the files that are being built
+        .pipe(print())
+        // parses the YAML frontmatter into a JS object that we can use in the following piped steps.
+
         //this is a farly complicate usage of gulp-shell. exercise caution and restrain.
         .pipe(shell([
             //recreate the destination directory inside _build, no matter how many layers of folder it has
-            'mkdir -p <%= "_build/" + file.relative.split("/").slice(0, -1).join("/") %>',
+            'mkdir -p <%= "_build/"%>',
             //pandoc with the latex engine
             'pandoc --latex-engine=xelatex' + " " +
             //gets the template filename from the frontMatter. The path is considered from the ./templates/ directory
             '--template=\"' + __dirname + '/templates/<%= file.frontMatter.template %>.tex\"' + " " +
             //get the output filename from the frontMatter, and the output file path from the path of the file currently being processed
-            '-o \"<%= "_build/" + file.relative.split("/").slice(0, -1).join("/")+"/" + file.frontMatter.filetitle + ".pdf" %>\"' + " " +
+            '-o \"<%= "_build/" + file.frontMatter.filetitle + ".pdf" %>\"' + " " +
             //process all files. Here there are no quotes because bash will expand "*.md"
             '<%= "src/" + file.relative.split("/").slice(0, -1).join("/") + "/*.md" %>'
         ], {
