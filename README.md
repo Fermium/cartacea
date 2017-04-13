@@ -1,3 +1,7 @@
+<a href="https://fermiumlabs.com/">
+    <img src="https://fermiumlabs.com/Assets/img/logos/Horizontal-Main_500px.png" alt="Fermium LABS logo" width="200" align="right" />
+</a>
+
 [![wercker status](https://app.wercker.com/status/86627b9183b151b80605d8ee376ab308/s/master "wercker status")](https://app.wercker.com/project/byKey/86627b9183b151b80605d8ee376ab308) [![Analytics](https://ga-beacon.appspot.com/UA-69533556-3/cartacea/readme/?flat)](https://github.com/igrigorik/ga-beacon)
 
 
