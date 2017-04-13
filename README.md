@@ -135,4 +135,9 @@ Cartacea should help with that.
 
 Secondly, LaTex is incredibly maintainable. A document written 10 years ago in latex can still (with a bit of work) be used today. Latex is itself one of the most extensive codebases in the world. We hope that 
 
-Thirdly, all those packages really helps. LaTeX can not only render books and letters, but also figures, diagrams, posters, presentations, business cards, brochures, invoices.
+Thirdly, all those packages really helps. LaTeX can not only render books and letters, but also figures, diagrams, posters, presentations, business cards, brochures, invoices.---
+
+<a href="https://twitter.com/intent/user?screen_name=fermiumlabs">
+    <img src="https://img.shields.io/twitter/follow/fermiumlabs.svg?style=social&label=Follow" alt="Follow Fermium LABS on Twitter" align="right" />
+</a>
+
